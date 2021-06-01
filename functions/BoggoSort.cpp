@@ -5,45 +5,56 @@
 using namespace std;
 
 // Comprobar si el arreglo esta ordenado o no
-bool isSorted(int a[], int n)
+bool is_sorted(const vector<int> &vec)
 {
-  while (--n > 1)
-    if (a[n] < a[n - 1])
+
+  for (int i = 1, n = vec.size(); i < n; i++)
+  {
+    if (vec[i - 1] > vec[i])
       return false;
+    // returns false if an element is smaller than one to its left
+  }
+
   return true;
 }
-
 // Genera permutación de la matriz
-void shuffle(int a[], int n)
+void shuffle(vector<int> &vec)
 {
-  for (int i = 0; i < n; i++)
-    swap(a[i], a[rand() % n]);
+  int i, n, tmp, rand_idx;
+
+  for (i = 0, n = vec.size(); i < n; i++)
+  {
+
+    tmp = vec[i]; // store temporarily
+
+    rand_idx = rand() % n; // pick a random index in the vector/array
+
+    // swap each element in vector/array with another one that is chosen randomly
+    vec[i] = vec[rand_idx];
+    vec[rand_idx] = tmp;
+  }
 }
 
-// Ordena los arreglos de A[0..n-1] usando Bogo Sort
-void bogosort(int a[], int n)
+void bogosort(vector<int> &vec)
 {
-  // if array is not sorted then shuffle
-  // the array again
-  while (!isSorted(a, n))
-    shuffle(a, n);
+  while (!is_sorted(vec))
+    shuffle(vec);
 }
 
 // prints the array
-void printArray(int a[], int n)
+void print(vector<int> &array)
 {
-  for (int i = 0; i < n; i++)
-    printf("%d ", a[i]);
-  printf("\n");
+  for (auto it = array.begin(); it != array.end(); it++)
+    std::cout << *it << " ";
+  std::cout << "\n";
 }
 
 // Driver code
-// int main()
-// {
-//   int a[] = {3, 2, 5, 1, 0, 4};
-//   int n = sizeof a / sizeof a[0];
-//   bogosort(a, n);
-//   printf("Sorted array :\n");
-//   printArray(a, n);
-//   return 0;
-// }
+int main()
+{
+  vector<int> a = {3, 2, 5, 1, 0, 4};
+  print(a);
+  bogosort(a);
+  print(a);
+  return 0;
+}
