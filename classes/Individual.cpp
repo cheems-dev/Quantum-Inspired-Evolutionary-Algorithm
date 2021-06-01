@@ -6,8 +6,6 @@ Individual<T>::Individual(std::vector<T> &_array)
   array = _array;
   copy_array = _array;
   std::sort(copy_array.begin(), copy_array.end());
-  // print_array(array);
-  // print_array(copy_array);
 }
 
 template <typename T>
@@ -38,11 +36,11 @@ void Individual<T>::shuffle()
   for (i = 0, n = array.size(); i < n; i++)
   {
 
-    tmp = array[i]; // store temporarily
+    tmp = array[i]; // almacenar temporalmente
 
-    rand_idx = rand() % n; // pick a random index in the vector/array
+    rand_idx = rand() % n; //índice aleatorio en el vector
 
-    // swap each element in vector/array with another one that is chosen randomly
+    // intercambio cada elemento en el vector con otro indice  al azar
     array[i] = array[rand_idx];
     array[rand_idx] = tmp;
   }
@@ -56,24 +54,16 @@ void Individual<T>::bogo_sort()
 }
 
 template <typename T>
-void Individual<T>::print(bool condition)
+void Individual<T>::print()
 {
   for (auto it = array.begin(); it != array.end(); it++)
     std::cout << *it << " ";
-  (condition) ? std::cout << "" : std::cout << std::endl;
-}
-
-template <typename T>
-void Individual<T>::print_array(std::vector<T> &_array)
-{
-  for (auto it = _array.begin(); it != _array.end(); it++)
-    std::cout << *it << " ";
-  std::cout << std::endl;
+  std::cout << "\t";
 }
 
 template <typename T>
 void Individual<T>::print_details(int _fitness, double _percent)
 {
-  print(true);
+  print();
   std::cout << "\tFitness: " << _fitness << "\tPorcentaje " << _percent << "%" << std::endl;
 }

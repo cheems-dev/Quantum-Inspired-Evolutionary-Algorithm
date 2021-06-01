@@ -9,34 +9,33 @@ int main(int argc, char const *argv[])
 {
   vector<int> array = {1, 2, 5, 4};
   vector<int> array2 = {1, 2, 5, 3};
+
   Individual<int> id_01(array);
   cout << "Test 1" << endl;
-  cout << "Intancia de la clase 'Entity' -> con mismos arreglos: " << endl;
+  cout << "Con mismos arreglos:  {1, 2, 5, 4} ==  {1, 2, 5, 4} ?" << endl;
   if (id_01.getArray() == array)
     cout << "Correct" << endl;
   else
     cout << "Incorrect" << endl;
 
   cout << "Test 2" << endl;
-  cout << "Intancia de la clase 'Entity' -> con mismos diferentes: " << endl;
+  cout << "Con arreglos diferentes: {1, 2, 5, 4} ==  {1, 2, 5, 3} ?" << endl;
   if (id_01.getArray() == array2)
-    cout << "Incorrect" << endl;
-  else
     cout << "Correct" << endl;
+  else
+    cout << "Incorrect" << endl;
 
-  cout << "Test 2" << endl;
-  cout << "Esta ordenado el arreglo:" << endl;
+  cout << "Test 3" << endl;
+  cout << "Esta ordenado el arreglo:  {1, 2, 5, 4} => {1, 2, 4, 5}? " << endl;
   (id_01.is_sorted())
       ? cout << "Correct" << endl
       : cout << "Incorrect" << endl;
 
-  //   .print();
-
-  // id_01.is_sorted()
-  //     ? cout << "Si\n"
-  //     : cout << "No\n";
-
-  // id_01.bogo_sort();
-  // id_01.print();
+  cout << "Test 4" << endl;
+  cout << "Esta ordenado el arreglo: {1, 2, 4, 5} => {1, 2, 4, 5} ?" << endl;
+  id_01.bogo_sort();
+  (id_01.is_sorted())
+      ? cout << "Correct" << endl
+      : cout << "Incorrect" << endl;
   return 0;
 }
