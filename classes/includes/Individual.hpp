@@ -1,17 +1,23 @@
 #ifndef INDIVIDUAL_HPP
 #define INDIVIDUAL_HPP
-#include "Fitness.hpp"
+#include <iostream>
 #include <vector>
+#include "Fitness.hpp"
 
 template <typename T>
 class Individual : public Fitness
 {
-  std::vector<T> array;
+  const std::vector<T> array;
 
 public:
-  Individual(std::vector<T> const &);
-  float isSorted();
+  Individual(const std::vector<T> &);
+  bool is_sorted();
+  void bogo_sort();
   void print();
+
+private:
+  // Shuffle añadido temporalmente
+  void shuffle();
 };
 
 #endif
