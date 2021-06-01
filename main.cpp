@@ -3,11 +3,12 @@
 // // C++ implementation of Bogo Sort
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "./classes/Individual.cpp"
 
 int main(int argc, char const *argv[])
 {
-  std::vector<int> array = {1, 2, 5, 4};
+  std::vector<int> array = {1, 2, 5, 4, 10, 11, 100};
   Individual<int> id_01(array);
   id_01.bogo_sort();
   return 0;

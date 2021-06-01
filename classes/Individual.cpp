@@ -4,6 +4,10 @@ template <typename T>
 Individual<T>::Individual(std::vector<T> &_array)
 {
   array = _array;
+  copy_array = _array;
+  std::sort(copy_array.begin(), copy_array.end());
+  // print_array(array);
+  // print_array(copy_array);
 }
 
 template <typename T>
@@ -18,7 +22,8 @@ bool Individual<T>::is_sorted()
   int fitness{1};
   for (int i = 1, n = array.size(); i < n; i++)
   {
-    (array[i - 1] < array[i]) ? fitness++ : fitness--;
+    if (array[i] == copy_array[i])
+      fitness++;
   }
   print_details(fitness, fitness * 100 / array.size());
 
@@ -59,8 +64,16 @@ void Individual<T>::print(bool condition)
 }
 
 template <typename T>
+void Individual<T>::print_array(std::vector<T> &_array)
+{
+  for (auto it = _array.begin(); it != _array.end(); it++)
+    std::cout << *it << " ";
+  std::cout << std::endl;
+}
+
+template <typename T>
 void Individual<T>::print_details(int _fitness, double _percent)
 {
   print(true);
-  std::cout << "\tFitness" << _fitness << "\tPorcentaje " << _percent << "%" << std::endl;
+  std::cout << "\tFitness: " << _fitness << "\tPorcentaje " << _percent << "%" << std::endl;
 }
