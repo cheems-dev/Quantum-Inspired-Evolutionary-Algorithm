@@ -9,13 +9,6 @@ int main(int argc, char const *argv[])
 {
   std::vector<int> array = {1, 2, 5, 4};
   Individual<int> id_01(array);
-  id_01.print();
-
-  id_01.is_sorted()
-      ? std::cout << "Si\n"
-      : std::cout << "No\n";
-
   id_01.bogo_sort();
-  id_01.print();
   return 0;
 }

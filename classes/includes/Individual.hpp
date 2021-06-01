@@ -14,9 +14,11 @@ private:
 
 public:
   Individual(std::vector<T> &);
+  std::vector<T> getArray();
   bool is_sorted();
   void bogo_sort();
-  void print();
+  void print(bool);
+  void print_details(int, double);
 };
 
 #endif
