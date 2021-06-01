@@ -2,10 +2,13 @@
 //     - Hacer el bogosort - Encapsular el arreglo en una clase individuo - Class Fitness para verificar qué tan ordenado está - Crear una pieza de arte(Framework) "
 // C++ implementation of Bogo Sort
 #include <iostream>
-using namespace std;
+#include <vector>
+#include "./classes/Individual.cpp"
 
 int main()
 {
-  cout << "Hello World" << endl;
+  std::vector<int> array = {1, 2, 5, 4};
+  Individual<int> id_01(array);
+  id_01.print();
   return 0;
 }
