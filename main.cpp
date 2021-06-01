@@ -7,7 +7,7 @@
 
 int main(int argc, char const *argv[])
 {
-  const std::vector<int> array = {1, 2, 5, 4};
+  std::vector<int> array = {1, 2, 5, 4};
   Individual<int> id_01(array);
   id_01.print();
 
