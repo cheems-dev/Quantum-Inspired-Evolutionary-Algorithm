@@ -4,7 +4,7 @@
 class Fitness
 {
 public:
-  virtual int isSorted() = 0;
+  virtual float isSorted() = 0;
 };
 
 #endif
