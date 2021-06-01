@@ -1,7 +1,7 @@
 #include "./includes/Individual.hpp"
 
 template <typename T>
-Individual<T>::Individual(std::vector<T> const &_array)
+Individual<T>::Individual(std::vector<T> &_array)
 {
   array = _array;
 }
@@ -39,8 +39,8 @@ void Individual<T>::shuffle()
 template <typename T>
 void Individual<T>::bogo_sort()
 {
-  while (!this.is_sorted(array))
-    this.shuffle(array);
+  while (!is_sorted())
+    shuffle();
 }
 
 template <typename T>

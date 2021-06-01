@@ -1,7 +1,6 @@
 #ifndef FITNESS_HPP
 #define FITNESS_HPP
 
-template <typename T>
 class Fitness
 {
 public:

@@ -7,17 +7,16 @@
 template <typename T>
 class Individual : public Fitness
 {
-  const std::vector<T> array;
+private:
+  std::vector<T> array;
+  // Shuffle añadido temporalmente
+  void shuffle();
 
 public:
-  Individual(const std::vector<T> &);
+  Individual(std::vector<T> &);
   bool is_sorted();
   void bogo_sort();
   void print();
-
-private:
-  // Shuffle añadido temporalmente
-  void shuffle();
 };
 
 #endif
