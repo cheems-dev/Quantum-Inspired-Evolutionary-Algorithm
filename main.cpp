@@ -10,11 +10,14 @@ int main(int argc, char const *argv[])
 {
 
   std::cout << "To working!" << std::endl;
-  
+
   std::vector<int> array = {1, 2, 5, 4, 10, 11, 100};
   Individual<int> id_01(array);
   id_01.bogo_sort();
   
   array.clear();
+
+  puts("SUCESS!");
+  
   return 0;
 }
