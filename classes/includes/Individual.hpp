@@ -1,34 +1,30 @@
 #ifndef INDIVIDUAL_HPP
 #define INDIVIDUAL_HPP
-
-#include <iostream>
 #include <vector>
-#include <algorithm>
-#include "Fitness.hpp"
+#include <iostream>
+// #include <bits/stdc++.h>
 
-// clase generica que hereda de la clase abstracta Fitness
-template <typename T>
-class Individual : public Fitness
+class Individual
 {
 private:
-  std::vector<T> array;
-  std::vector<T> copy_array;
-  // metodo privado para barajear "chocolatear"
-  void shuffle();
+  std::vector<int> array;
+  std::vector<int> copy_array;
+  std::vector<bool> estado;
+  int fit_;
 
 public:
-  // Constructor de clase que recibe un vector Generico
-  Individual(std::vector<T> &);
-  // Retornamos nuestro vector "array"
-  std::vector<T> getArray();
-  // Retornamos nuestro vector "array"
-  bool is_sorted();
-  // Algoritmo de ordenamiento bobo
-  void bogo_sort();
-  // Imprimesion de nuestro vector "array"
+  Individual(std::vector<int> &);
+  std::vector<int> getArray();
+  bool operator<(Individual &) const;
+  void set_array(std::vector<int> &);
+  void suffle();
+  int get_len();
+  void set_fitness(int);
+  int get_fitness();
+  void fitness();
   void print();
-  // Imprime fitness y porcentaje de ordanamiento
-  void print_details(int, double);
+  void mutar(int);
+  void l_suffle();
+  void exe();
 };
-
 #endif
