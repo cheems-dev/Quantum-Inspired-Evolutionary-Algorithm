@@ -1,23 +1,20 @@
 // // "- Crear Github
 // //     - Hacer el bogosort - Encapsular el arreglo en una clase individuo - Class Fitness para verificar qué tan ordenado está - Crear una pieza de arte(Framework) "
 // // C++ implementation of Bogo Sort
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include "./classes/Individual.cpp"
+#include "./classes/Genetic.cpp"
+#include <bits/stdc++.h>
 
 int main(int argc, char const *argv[])
 {
+    srand(time(NULL));
+    std::cout << "Raa!" << std::endl;
 
-  std::cout << "To working!" << std::endl;
+    //Incializar
+    std::vector<int> array = {6, 5, 1, 2, 4, 3, 0, 7};
+    Genetic test = Genetic(array, 0.3, 10, 4);
+    test.iniciar();
 
-  std::vector<int> array = {1, 2, 5, 4, 10, 11, 100};
-  Individual<int> id_01(array);
-  id_01.bogo_sort();
-  
-  array.clear();
-
-  puts("SUCESS!");
-  
-  return 0;
+    //Cleaning
+    array.clear();
+    return 0;
 }
