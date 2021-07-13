@@ -1,30 +1,17 @@
 #ifndef GENETIC_HPP
 #define GENETIC_HPP
 
-#include <vector>
-#include "./Individual.hpp"
-#include <algorithm>
-
+#include "Individual.hpp"
+#include "Operations.hpp"
 class Genetic
 {
-private:
-  std::vector<Individual> population;
-  std::vector<int> for_sort;
-  std::vector<int> target;
-  float mutation_chance;
-  int num_individuos;
-  int cant_cruce;
+  Individual population;
+  int target;
+  Operations operations;
 
 public:
-  Genetic(std::vector<int> &, float, int, int);
-  std::vector<Individual> selection();
-  std::vector<Individual> reproduction();
-  std::vector<int> vec_menor(std::vector<int> &, std::vector<int> &);
-  int random_pos(int);
-  int key_bett();
-  bool is_sorted_();
-  void print_pop();
-  void iniciar();
+  Genetic(int, int, int, int);
+  void run();
 };
 
 #endif

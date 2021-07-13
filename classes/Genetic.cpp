@@ -1,126 +1,23 @@
 #include "./includes/Genetic.hpp"
-#include "./GenPoblacion.cpp"
 #include "./Individual.cpp"
+#include "../functions/generate_percent.cpp"
+#include "./Operations.cpp"
 
-Genetic::Genetic(std::vector<int> &_arr, float mt_ch, int nm_ind, int ct_cr)
+Genetic::Genetic(int NUMBER_INDIVIDUAL, int TARGET, int LOWER_RANGE, int UPPER_RANGE)
 {
-  for_sort = _arr;
-  target = _arr;
-  num_individuos = nm_ind;
-  std::sort(target.begin(), target.end());
-  // Aqui me genero el error por eso quitamos los tipos genericos
-  GenPoblacion p = GenPoblacion(for_sort, num_individuos);
-  population = p.Generar();
-  cant_cruce = ct_cr;
+  this->population = Individual(NUMBER_INDIVIDUAL, LOWER_RANGE, UPPER_RANGE);
+  this->target = TARGET;
 }
 
-std::vector<Individual> Genetic::selection()
+void Genetic::run()
 {
-  puts("Seleccionado");
-  std::sort(population.begin(), population.end());
-  return population;
-}
-
-std::vector<Individual> Genetic::reproduction()
-{
-  puts("Reproduciendo");
-  std::vector<Individual> better;
-
-  for (int i = key_bett(); i < this->population.size(); ++i)
-    better.push_back(population[i]);
-
-  int _tt = better.size();
-  for (int i = 0; i < _tt; ++i)
+  int result = 0, i = population.size() - 1, ages = 0;
+  while (result != this->target)
   {
-    std::vector<int> padre = better[random_pos(_tt)].getArray();
-    std::vector<int> madre = better[random_pos(_tt)].getArray();
-    std::vector<int> _new = vec_menor(padre, madre);
-    population[i].set_array(_new);
-
-    madre.clear();
-    padre.clear();
-    _new.clear();
+    population.add((generate_percent(1) > .5) ? operations.cross_over(population.index(i), population.index(i - 1)) : operations.mutate(population.index(i)));
+    i = population.size() - 1; // actualizamos el tamaño de nuetra problacion
+    result = operations.fitness(population.index(i), this->target);
+    std::cout << "Generacion " << ages++ << std::endl;
+    operations.print(population.index(i), result);
   }
-
-  better.clear();
-  return population;
-}
-
-std::vector<int> Genetic::vec_menor(std::vector<int> &_p, std::vector<int> &_m)
-{
-  std::vector<int> neww;
-  for (int i = 0; i < _p.size(); ++i)
-  {
-    if (_p[i] < _m[i])
-    {
-      if ((std::find(neww.begin(), neww.end(), _p[i]) != neww.end()) == false)
-        neww.push_back(_p[i]);
-    }
-    if (_p[i] > _m[i])
-    {
-      if ((std::find(neww.begin(), neww.end(), _p[i]) != neww.end()) == false)
-        neww.push_back(_p[i]);
-    }
-    else if (_m[i] > _p[i])
-    {
-      if ((std::find(neww.begin(), neww.end(), _m[i]) != neww.end()) == false)
-        neww.push_back(_m[i]);
-    }
-    else if (_p[i] == _m[i])
-    {
-      if ((std::find(neww.begin(), neww.end(), _p[i]) != neww.end()) == false)
-        neww.push_back(_p[i]);
-    }
-  }
-
-  return neww;
-}
-
-int Genetic::random_pos(int _size)
-{
-  int position_rand;
-  position_rand = rand() % _size;
-  return position_rand;
-}
-
-int Genetic::key_bett()
-{
-  int init = population.size() - cant_cruce;
-  return init;
-}
-
-bool Genetic::is_sorted_()
-{
-  return false;
-}
-
-void Genetic::print_pop()
-{
-  for (int i = 0; i < population.size(); ++i)
-    population[i].print();
-  std::cout << "\n";
-}
-
-void Genetic::iniciar()
-{
-  print_pop();
-  selection();
-  print_pop();
-  reproduction();
-  print_pop();
-  selection();
-  print_pop();
-  reproduction();
-  print_pop();
-  selection();
-  print_pop();
-  population[population.size() - 1].mutar(2);
-}
-
-template <typename T>
-void printvec(std::vector<T> &_a)
-{
-  for (auto i : _a)
-    std::cout << i << " ";
-  std::cout << "\t";
 }
