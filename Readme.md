@@ -1,25 +1,39 @@
-# Readme.md
+# Quantum-Inspired Evolutionary Algorithm
 
-Puede hacer un fork en el siguiente enlace [Repositorio](https://github.com/luis-revan/proyect)
+![Quantum-Inspired%20Evolutionary%20Algorithm%20ee9e1e2668ad4b0dbbc427190c8713de/Captura_de_pantalla_2021-07-19_12-31-35.png](Quantum-Inspired%20Evolutionary%20Algorithm%20ee9e1e2668ad4b0dbbc427190c8713de/Captura_de_pantalla_2021-07-19_12-31-35.png)
 
-### Antes de empezar
+Para demostrar la efectividad usaremos el ***problema de la mochila*** el cual es conocido como un problema de optimizacion combinatoria.
 
-Tenemos dos opciones para ver la ejecucion del code
+El algoritmo ***QEA***
 
-1. Ejecutando los test
+- Tiene una buena performance
+- Incluso en pequeñas poblaciones
+- Con una rápida convergencia comparado con la forma convencional de algoritmos genéticos
 
-    ```
-    g++ test/test.cpp
-    ```
+## Resumen
 
-2. Hacer su propia implementacion en el archivo `main.cpp`
+1. Se basa en los principios de la computación cuántica
+    - Bit cuántico
+    - Estado de superposición
+2. Representación del individuo
+3. Función de evaluación ("fitness")
+4. Poblaciones dinámicas
 
-    ```
-    g++ main.cpp
-    ```
+Usa
 
-Por ultimo ejecute el archivo binario. Happy coding 🤪
+1. Q-bit ***"la unidad de información mas pequeña"***
 
-```
-/a.out
-```
+    Para:
+
+    - Representacion probabilistica
+    - Individual Q-bit como una cadena de Q-bits
+2. Q*uantum-gate*
+    - Operador de variación para manejar individuos hacia la mejor solución.
+
+## Pruebas
+
+![Quantum-Inspired%20Evolutionary%20Algorithm%20ee9e1e2668ad4b0dbbc427190c8713de/Figure_1_(1).png](Quantum-Inspired%20Evolutionary%20Algorithm%20ee9e1e2668ad4b0dbbc427190c8713de/Figure_1_(1).png)
+
+![Quantum-Inspired%20Evolutionary%20Algorithm%20ee9e1e2668ad4b0dbbc427190c8713de/Figure_2.png](Quantum-Inspired%20Evolutionary%20Algorithm%20ee9e1e2668ad4b0dbbc427190c8713de/Figure_2.png)
+
+![Quantum-Inspired%20Evolutionary%20Algorithm%20ee9e1e2668ad4b0dbbc427190c8713de/Figure_3.png](Quantum-Inspired%20Evolutionary%20Algorithm%20ee9e1e2668ad4b0dbbc427190c8713de/Figure_3.png)
