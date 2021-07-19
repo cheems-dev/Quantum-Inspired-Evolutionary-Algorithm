@@ -18,14 +18,16 @@ El algoritmo **_QEA_**
 2. Representación del individuo
 3. Función de evaluación ("fitness")
 4. Poblaciones dinámicas
+5. Tomamos como referencia el mejor individuo de la población para el crossover
+6. Demostramos que el Qubit optimiza enormemente el AG.
 
 Usa
 
 1. Q-bit **_"la unidad de información mas pequeña"_**
 
    Para:
-
-   - Representacion probabilistica
+   - a = b = 1/sqrt(2) 
+   - Representación probabilística
    - Individual Q-bit como una cadena de Q-bits
 
 2. Q*uantum-gate*
