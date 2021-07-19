@@ -1,17 +1,23 @@
-#include "./classes/Genetic.cpp"
 #include <bits/stdc++.h>
+#include "./classes/Genetic.h"
 
-int main(int argc, char const *argv[])
+int main(int argc, char **argv)
 {
-    srand(time(NULL));
-    std::cout << "Raa!" << std::endl;
+    //Algorithm
+    // fitness penality 1
+    // fitness repair 2
 
-    //Incializar
-    std::vector<int> array = {6, 5, 1, 2, 4, 3, 0, 7};
-    Genetic test = Genetic(array, 0.3, 10, 4);
-    test.iniciar();
+    puts("fitness : Penalty!");
+    srand(static_cast<unsigned int>(time(nullptr)));
+    Genetic a(20, 50, 1000, 300, 1);
+    a.exe();
+    //free memory
 
-    //Cleaning
-    array.clear();
-    return 0;
+    puts("fitness : Repair");
+    srand(static_cast<unsigned int>(time(nullptr)));
+    Genetic b(20, 50, 1000, 300, 2);
+    b.exe();
+    //free memory
+
+    return EXIT_SUCCESS;
 }

@@ -1,126 +1,83 @@
-#include "./includes/Genetic.hpp"
-#include "./GenPoblacion.cpp"
-#include "./Individual.cpp"
+#include "Genetic.h"
+using namespace std;
 
-Genetic::Genetic(std::vector<int> &_arr, float mt_ch, int nm_ind, int ct_cr)
-{
-  for_sort = _arr;
-  target = _arr;
-  num_individuos = nm_ind;
-  std::sort(target.begin(), target.end());
-  // Aqui me genero el error por eso quitamos los tipos genericos
-  GenPoblacion p = GenPoblacion(for_sort, num_individuos);
-  population = p.Generar();
-  cant_cruce = ct_cr;
+void Genetic::initialize_Population(){
+    for (size_t i = 0; i < population_size; ++i)
+        population.push_back(Individuo(cromosoma_size));
 }
 
-std::vector<Individual> Genetic::selection()
-{
-  puts("Seleccionado");
-  std::sort(population.begin(), population.end());
-  return population;
+void Genetic::make(){
+    for (size_t i = 0; i < population_size; ++i)
+        population[i].Individuo::make();
 }
 
-std::vector<Individual> Genetic::reproduction()
-{
-  puts("Reproduciendo");
-  std::vector<Individual> better;
-
-  for (int i = key_bett(); i < this->population.size(); ++i)
-    better.push_back(population[i]);
-
-  int _tt = better.size();
-  for (int i = 0; i < _tt; ++i)
-  {
-    std::vector<int> padre = better[random_pos(_tt)].getArray();
-    std::vector<int> madre = better[random_pos(_tt)].getArray();
-    std::vector<int> _new = vec_menor(padre, madre);
-    population[i].set_array(_new);
-
-    madre.clear();
-    padre.clear();
-    _new.clear();
-  }
-
-  better.clear();
-  return population;
+void Genetic::repair(){
+    for (size_t i = 0; i < population_size; ++i)
+        population[i].Individuo::repair(max_capacity);
 }
 
-std::vector<int> Genetic::vec_menor(std::vector<int> &_p, std::vector<int> &_m)
-{
-  std::vector<int> neww;
-  for (int i = 0; i < _p.size(); ++i)
-  {
-    if (_p[i] < _m[i])
-    {
-      if ((std::find(neww.begin(), neww.end(), _p[i]) != neww.end()) == false)
-        neww.push_back(_p[i]);
+void Genetic::evaluate(){
+    for (size_t i = 0; i < population_size; ++i)
+        population[i].evaluate_fitness(ty_fitness, max_capacity);
+    sort(population.begin(), population.end());
+}
+
+float Genetic::get_rotation_angle(const int xi,const int bi, bool condition){
+    const float pi = acosf(-1);
+    if (xi == 0 && bi == 1 && condition == false)
+        return 0.01f*pi;
+    else if (xi == 1 && bi == 0 && condition == false)
+        return -1*0.01f*pi;
+    else
+        return 0; 
+}
+
+void Genetic::update(Individuo &initial, Individuo &best){
+    const float pi = acosf(-1);
+    bool condition = initial.fitness >= best.fitness;
+    for (size_t i = 0; i < initial.size; ++i){
+        float angle = get_rotation_angle(initial.cromosome_colapsed[i], best.cromosome_colapsed[i], condition);
+        if((angle >= 0 && angle <= pi/2) || angle >= pi && angle <= (3/2)*pi){
+            initial[i].alpha = initial[i].alpha*cos(angle) - initial[i].alpha*sin(angle);
+            initial[i].beta = initial[i].beta*sin(angle) + initial[i].beta*cos(angle);
+        }else{
+            initial[i].alpha = initial[i].alpha*sin(angle) - initial[i].alpha*cos(angle);
+            initial[i].beta = initial[i].beta*-1*sin(angle) - initial[i].beta*cos(angle);   
+        }
     }
-    if (_p[i] > _m[i])
-    {
-      if ((std::find(neww.begin(), neww.end(), _p[i]) != neww.end()) == false)
-        neww.push_back(_p[i]);
+}
+
+Genetic::Genetic(size_t popu_size, size_t cromo_size, size_t generations, const int max_capacity, const int type)
+    : population_size{popu_size}, cromosoma_size{cromo_size}, generations{generations}, max_capacity{max_capacity}, ty_fitness{type} { 
+        population.reserve(population_size);
     }
-    else if (_m[i] > _p[i])
-    {
-      if ((std::find(neww.begin(), neww.end(), _m[i]) != neww.end()) == false)
-        neww.push_back(_m[i]);
+
+void Genetic::exe(){
+    initialize_Population();
+    make();
+    if (ty_fitness == 2) repair();
+    evaluate();
+    Individuo best = population[0];
+    for (int i = 0; i < generations; ++i){
+
+        make();
+        if (ty_fitness == 2) repair();
+        evaluate();
+
+        for (int j = 0; j < population_size; ++j)
+            update(population[j],best);
+
+        if (population[0].fitness > best.fitness) best = population[0];
+        //cout << "Generation: " << i << "  fitness: " << best.fitness <<" weight: "<< best.weight << "  >>" << endl;
     }
-    else if (_p[i] == _m[i])
-    {
-      if ((std::find(neww.begin(), neww.end(), _p[i]) != neww.end()) == false)
-        neww.push_back(_p[i]);
-    }
-  }
-
-  return neww;
+    cout << "Best Solution:" << endl;
+    best.show_binary();
+    cout << "Final fitness: " << best.fitness << endl;
+    cout << "Final weight: " << best.weight << endl;
+    cout << "Knapsack capacity used: " << best.weight*100/max_capacity << "% " << endl;
+    EXIT_SUCCESS;
 }
 
-int Genetic::random_pos(int _size)
-{
-  int position_rand;
-  position_rand = rand() % _size;
-  return position_rand;
-}
-
-int Genetic::key_bett()
-{
-  int init = population.size() - cant_cruce;
-  return init;
-}
-
-bool Genetic::is_sorted_()
-{
-  return false;
-}
-
-void Genetic::print_pop()
-{
-  for (int i = 0; i < population.size(); ++i)
-    population[i].print();
-  std::cout << "\n";
-}
-
-void Genetic::iniciar()
-{
-  print_pop();
-  selection();
-  print_pop();
-  reproduction();
-  print_pop();
-  selection();
-  print_pop();
-  reproduction();
-  print_pop();
-  selection();
-  print_pop();
-  population[population.size() - 1].mutar(2);
-}
-
-template <typename T>
-void printvec(std::vector<T> &_a)
-{
-  for (auto i : _a)
-    std::cout << i << " ";
-  std::cout << "\t";
+Genetic::~Genetic(){
+    population.clear();
 }
