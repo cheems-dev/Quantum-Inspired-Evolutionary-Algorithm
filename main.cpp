@@ -4,8 +4,8 @@
 int main(int argc, char **argv)
 {
     //Algorithm
-    // fitness penality 1
-    // fitness repair 2
+    // fitness type penality 1
+    // fitness type repair 2
 
     puts("fitness : Penalty!");
     srand(static_cast<unsigned int>(time(nullptr)));
