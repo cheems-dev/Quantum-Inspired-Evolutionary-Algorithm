@@ -57,7 +57,6 @@ void Individuo::show_binary(){
 }
 
 void Individuo::repair(const int max_capacity){
-
     bool overfilled = false;
 
     if(get_t_weight() > max_capacity)
@@ -82,7 +81,6 @@ void Individuo::repair(const int max_capacity){
         if(get_t_weight() > max_capacity)
             overfilled = true;
     }
-
     cromosome_colapsed[j_th] = 0;
 }
 
