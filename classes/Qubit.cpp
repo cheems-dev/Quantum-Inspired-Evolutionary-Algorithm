@@ -2,11 +2,12 @@
 #include "Qubit.h"
 
 Qubit::Qubit()
-    : alpha{1/std::sqrt(2)}, beta{1/std::sqrt(2)} {} 
+    : alpha{1 / std::sqrt(2)}, beta{1 / std::sqrt(2)} {}
 
-int Qubit::colapso() const{
+int Qubit::collapse() const
+{
     double probability = (double)rand() / (double)RAND_MAX;
     if (probability < beta * beta)
-        return 1; 
-	return 0;
+        return 1;
+    return 0;
 }
